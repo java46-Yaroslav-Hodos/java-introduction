@@ -11,13 +11,58 @@ public class Strings {
  */
 	public static int[] deepNoRepeatedCompare(String str1, String str2) {
 	//TODO
-		//Two implementation hints
+		//Hints for two different implementations
 		//   first: additional helper array such that array['a'] 
 		//          is an index of the symbol 'a' in str1 or -1
 		//          example, str1 - "ctab" then array['a'] = 2;
 		// ************************************************
 		//   second: implementation based on the method indexOf
-	return null;
+		int res[] = new int[2];
+		/*******************************************/
+		//first implementation O[N]
+		helperImpl(str1, str2, res);
+		/********************************************/
+		//second implementation based on indexOf O[N^2]
+		//indexOfImpl(str1, str2, res);
+		
+	return res;
+}
+private static void indexOfImpl(String str1, String str2, int[] res) {
+	char str2Ar[] = str2.toCharArray();
+	for(int i = 0; i < str2Ar.length; i++) {
+		int index = str1.indexOf(str2Ar[i]);
+		if (index >= 0) {
+			res[index == i ? 0 : 1]++;
+		}
+	}
+}
+private static void helperImpl(String str1, String str2, int[] res) {
+	int helper[] = new int [127];
+
+	fillInitHelper(helper);
+	fillHelperString1(str1, helper);
+fillResult(helper, res, str2);
+}
+private static void fillInitHelper(int[] helper) {
+	for(int i = 0; i < helper.length; i++) {
+		helper[i] = -1;
+	}
+	
+}
+private static void fillResult(int[] helper, int[] res, String str2) {
+	char str2Ar[] = str2.toCharArray();
+	for (int i = 0; i < str2Ar.length; i++) {
+		int index = helper[str2Ar[i]];
+		if (index >= 0) {
+			res[index == i ? 0 : 1]++;
+		}
+	}
+}
+private static void fillHelperString1(String str1, int[] helper) {
+	char str1Ar[] = str1.toCharArray();
+	for (int i = 0; i < str1Ar.length; i++) {
+		helper[str1Ar[i]] = i;
+	}
 }
 	/**
 	 * 
@@ -28,10 +73,32 @@ public class Strings {
 	 *     (2) str2 comprises of all letters from str1
 	 */
 	public static boolean isAnagram(String str1, String str2) {
-		//TODO
+		
 		// additional helper array such that array['a'] is the number of 'a' occurrences in str1
 		//str1 = "hello", array['l'] = 2; array['w'] = 0;
-		return false;
+		if (str1.length() != str2.length()) {
+			return false;
+		}
+		int [] helper = new int[127];
+		fillHelperOccurrences(str1, helper);
+		return isAnagram(str2, helper);
+		
+	}
+	private static boolean isAnagram(String str, int[] helper) {
+		char[] strAr = str.toCharArray();
+		for(int i = 0; i < strAr.length; i++) {
+			int count = helper[strAr[i]]--;
+			if (count == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	private static void fillHelperOccurrences(String str, int[] helper) {
+		char[] strAr = str.toCharArray();
+		for(int i = 0; i < strAr.length; i++) {
+			helper[strAr[i]]++;
+		}
 		
 	}
 }

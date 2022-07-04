@@ -14,17 +14,17 @@ class StringsClassTests {
 		String str2 = "123,tT89";
 		String str3 = "19";
 		String str5 = "98Tt,321";
-		String str4 ="kugy";
-		int expected1[] = {8, 0};
-		int expected2[] = {1, 1};
-		int expected3[] = {0, 8};
-		int expected4[] = {0, 0};
+		String str4 = "kugy";
+		int expected1[] = { 8, 0 };
+		int expected2[] = { 1, 1 };
+		int expected3[] = { 0, 8 };
+		int expected4[] = { 0, 0 };
 		assertArrayEquals(expected1, Strings.deepNoRepeatedCompare(str1, str2));
 		assertArrayEquals(expected2, Strings.deepNoRepeatedCompare(str1, str3));
 		assertArrayEquals(expected3, Strings.deepNoRepeatedCompare(str1, str5));
 		assertArrayEquals(expected4, Strings.deepNoRepeatedCompare(str1, str4));
 	}
-	
+
 	@Test
 	void isAnagramTests() {
 		String str1 = "Hello";
