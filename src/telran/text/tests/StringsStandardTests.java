@@ -9,16 +9,18 @@ import org.junit.jupiter.api.Test;
 class StringsStandardTests {
 
 	@Test
-	void stringArrayTests() throws UnsupportedEncodingException {
+	void stringArraysTest() throws UnsupportedEncodingException {
 		String strEnglish = "hello";
-		String strHebrew = "שלום";
-		char arCh[] = {'h', 'e', 'l', 'l', 'o'};
-		byte arBytes[] = {'h', 'e', 'l', 'l', 'o'};
+		String strHebrew = "ùìåí";
+		char arCh[] = {'h', 'e', 'l','l','o'};
+		byte arBytes[] = {'h', 'e', 'l','l','o'};
 		assertArrayEquals(arCh, strEnglish.toCharArray());
 		assertArrayEquals(arBytes, strEnglish.getBytes());
 		assertEquals(5, strEnglish.getBytes().length);
 		assertEquals(4, strHebrew.toCharArray().length);
 		assertEquals(8, strHebrew.getBytes("utf-8").length);
+		
+		
 	}
 	@Test
 	void equalsStrings() {
@@ -55,6 +57,16 @@ class StringsStandardTests {
 		String strExpected = "a=5";
 		int b = 10;
 		assertEquals(strExpected, String.format("a=%d", b / 2));
+	}
+	@Test
+	void replaceTest() {
+		String str = "Hello";
+		//str = str.concat(" Vasya");
+		str = str.replace("ello", "allo");
+		assertEquals("Hallo", str);
+		StringBuilder strBuilder = new StringBuilder("Hello");
+		strBuilder.replace(1, 5, "allo");
+		assertEquals("Hallo", strBuilder.toString());
 	}
 
 }
