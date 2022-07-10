@@ -50,13 +50,13 @@ class StringsClassTests {
 		String expected = "Hello Vasya";
 		assertEquals(expected, Strings.join(array, " "));
 	}
-	@Test
-	void joinPerformanceTest() {
-		String array[] = getBigArray();
-		for(int i = 0; i < N_RUNS; i++) {
-			Strings.join(array, " ");
-		}
-	}
+//	@Test
+//	void joinPerformanceTest() {
+//		String array[] = getBigArray();
+//		for(int i = 0; i < N_RUNS; i++) {
+//			Strings.join(array, " ");
+//		}
+//	}
 
 	private String[] getBigArray() {
 		String res[] = new String[N_STRINGS];
@@ -67,20 +67,28 @@ class StringsClassTests {
 	}
 	@Test
 	void matchesTest() {
-		//TODO
-		//        Examples:
-//	        - David vs. david: match
-//	        - John F vs. John Fitzgerald: match
-//	        - John K vs. John Fitzgerald: no match
-//	        - Anna Maria Magdalena vs. Anna Magdalena: match
-//	        - Anna Maria Magdalena vs. Maria Magdalena: match
-//	        - Anna Maria Magdalena vs. Anna Maria Roberta: no match
-//	        - Anna Maria Magdalena vs. Anna Magdalena Roberta: no match
-//	        - Anna Maria Magdalena vs. Anna Magdalena Maria: no match
+		
+		String match = "match";
+		String noMatch = "no match";
+		assertEquals(match, Strings.matches("David", "david"));
+		assertEquals(match, Strings.matches("John F", "John Fitzgerald"));
+		assertEquals(match, Strings.matches("John Fit", "John F"));
+		assertEquals(noMatch, Strings.matches("John K", "John Fitzgerald"));
+		assertEquals(match, Strings.matches("Anna Maria Magdalena", "Anna Magdalena"));
+		assertEquals(match, Strings.matches("Anna Maria Magdalena", "Maria Magdalena"));
+		assertEquals(match, Strings.matches("Anna Maria Magdalena", "Anna Maria"));
+		assertEquals(noMatch, Strings.matches("Anna Maria Magdalena", "Anna Maria Roberta"));
+		assertEquals(noMatch, Strings.matches("Anna Maria Magdalena", "Anna Magdalena Roberta"));
+		assertEquals(noMatch, Strings.matches("Anna Maria Magdalena", "Anna Magdalena Maria"));
+		
+		
 	}
 	@Test
 	void sortStringsAsNumbersTest() {
-		//TODO
+		String[] ar = {"9", "250", "50", "123", "23", "9", "123", "50"} ;
+		String expected[] =  {"9", "9", "23", "50", "50", "123", "123", "250"} ;
+		Strings.sortStringsAsNumbers(ar);
+		assertArrayEquals(expected, ar);
 	}
 
 }
