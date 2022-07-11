@@ -220,7 +220,8 @@ private static void fillHelperString1(String str1, int[] helper) {
 		if(!checkParentheses(expression)) {
 			return false;
 		}
-		expression = removeSpacesAndParentheses(expression);
+		//expression = removeSpacesAndParentheses(expression);
+		expression = removeSpaces(expression);
 		
 		return expression.matches(arithmeticExpression());
 	}
@@ -230,8 +231,13 @@ private static void fillHelperString1(String str1, int[] helper) {
 	 * returns string with no parentheses and no spaces
 	 */
 	private static String removeSpacesAndParentheses(String expression) {
-		// TODO Auto-generated method stub
-		return "";
+		
+		return expression.replaceAll("[\\s()]+", "");
+		
+	}
+private static String removeSpaces(String expression) {
+		
+		return expression.replaceAll("\\s+", "");
 		
 	}
 	/**
@@ -242,8 +248,18 @@ private static void fillHelperString1(String str1, int[] helper) {
 	 * (ab))((cd) - false
 	 */
 	private static boolean checkParentheses(String expression) {
-		// TODO Auto-generated method stub
-		//Hint: count with ++ for '(' and -- ')'. 
-		return false;
+		char[] strArray = expression.toCharArray();
+		int count = 0;
+		for(int i = 0; i < strArray.length; i++) {
+			if (strArray[i] == '(') {
+				count++;
+			} else if (strArray[i] == ')') {
+				count--;
+				if (count < 0) {
+					return false;
+				}
+			}
+		}
+		return count == 0;
 	}
 }

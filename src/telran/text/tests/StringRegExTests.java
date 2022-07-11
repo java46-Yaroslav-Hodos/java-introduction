@@ -44,5 +44,29 @@ class StringRegExTests {
 		assertFalse(isIPv4("a.10.1.1"));
 		
 	}
+	@Test
+	void arithmeticExpressionTrue() {
+		assertTrue(isArithmeticExpression("2 * $"));
+		assertTrue(isArithmeticExpression("2 * c + 100. / abc"));
+		assertTrue(isArithmeticExpression("(a + b)*(a - b)"));
+		assertTrue(isArithmeticExpression("(a + b)*(a) - (b)"));
+		assertTrue(isArithmeticExpression("((a + b) * (a - b)) + .10"));
+		assertTrue(isArithmeticExpression("(((a + b) * (a - b)) +10) * (10 / 2.78)"));
+		
+	}
+	@Test
+	void arithmeticExpressionFalse() {
+		assertFalse(isArithmeticExpression("2 * _")); // _ - wrong variable name
+		assertFalse(isArithmeticExpression("2 * c + . / abc")); //. - wrong operand
+		assertFalse(isArithmeticExpression("(a + b)*(a # b)")); //# - wrong operation
+		assertFalse(isArithmeticExpression("((a + b) * (a - b) + .10")); // wrong parentheses
+		assertFalse(isArithmeticExpression("(((a + b) * (a - b -)) +10 * (10 / 2.78)"));//(a - b -) - no operand after operation
+		assertFalse(isArithmeticExpression("a ** b"));
+		assertFalse(isArithmeticExpression("+a / b"));
+	}
+	@Test
+	void arithmeticExpressionWrongParenthesesPlacing() {
+		assertFalse(isArithmeticExpression("(((a + b) * )(a - b)) (+10) * (10 / 2.78)"));
+	}
 
 }
